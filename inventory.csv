@@ -1,0 +1,71 @@
+Name,Type,Description
+alias,string,Alias.
+asset_tag,string,Asset tag.
+chassis,string,Chassis.
+contact,string,Contact person.
+contract_number,string,Contract number.
+date_hw_decomm,string,HW decommissioning date.
+date_hw_expiry,string,HW maintenance expiry date.
+date_hw_install,string,HW installation date.
+date_hw_purchase,string,HW purchase date.
+deployment_status,string,Deployment status.
+hardware,string,Hardware.
+hardware_full,string,Detailed hardware.
+host_netmask,string,Host subnet mask.
+host_networks,string,Host networks.
+host_router,string,Host router.
+hw_arch,string,HW architecture.
+installer_name,string,Installer name.
+location,string,Location.
+location_lat,string,Location latitude.
+location_lon,string,Location longitude.
+macaddress_a,string,MAC address A.
+macaddress_b,string,MAC address B.
+model,string,Model.
+name,string,Name.
+notes,string,Notes.
+oob_ip,string,OOB IP address.
+oob_netmask,string,OOB host subnet mask.
+oob_router,string,OOB router.
+os,string,OS name.
+os_full,string,Detailed OS name.
+os_short,string,Short OS name.
+poc_1_cell,string,Primary POC mobile number.
+poc_1_email,string,Primary email.
+poc_1_name,string,Primary POC name.
+poc_1_notes,string,Primary POC notes.
+poc_1_phone_a,string,Primary POC phone A.
+poc_1_phone_b,string,Primary POC phone B.
+poc_1_screen,string,Primary POC screen name.
+poc_2_cell,string,Secondary POC mobile number.
+poc_2_email,string,Secondary POC email.
+poc_2_name,string,Secondary POC name.
+poc_2_notes,string,Secondary POC notes.
+poc_2_phone_a,string,Secondary POC phone A.
+poc_2_phone_b,string,Secondary POC phone B.
+poc_2_screen,string,Secondary POC screen name.
+serialno_a,string,Serial number A.
+serialno_b,string,Serial number B.
+site_address_a,string,Site address A.
+site_address_b,string,Site address B.
+site_address_c,string,Site address C.
+site_city,string,Site city.
+site_country,string,Site country.
+site_notes,string,Site notes.
+site_rack,string,Site rack location.
+site_state,string,Site state.
+site_zip,string,Site ZIP/postal code.
+software,string,Software.
+software_app_a,string,Software application A.
+software_app_b,string,Software application B.
+software_app_c,string,Software application C.
+software_app_d,string,Software application D.
+software_app_e,string,Software application E.
+software_full,string,Software details.
+tag,string,Tag.
+type,string,Type.
+type_full,string,Type details.
+url_a,string,URL A.
+url_b,string,URL B.
+url_c,string,URL C.
+vendor,string,Vendor.
