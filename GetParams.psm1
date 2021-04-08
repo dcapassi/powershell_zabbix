@@ -10,6 +10,8 @@ function getParameters {
     $includeSNMP = $true
     $includeInventory = $true
     $includeTags = $true
+    $includeTemplate= $true
+
     function getVariable {
 
         param ($variableName, $variableList)
@@ -47,8 +49,13 @@ function getParameters {
     if ($hostHashTable.'hostname' -eq $null -or 
         ($hostHashTable.'ip' -eq $null -and $hostHashTable.'dns' -eq $null) -or 
         $hostHashTable.'groups' -eq $null) {
-        $includeHost = $false
+            $includeHost = $false
 
+    }
+    
+    $hostHashTable.'templates'
+    if ($hostHashTable.'templates' -eq $null){
+        $includeTemplate = $false
     }
 
     $snmps = $elemento | Get-Member -Name 'snmp *'
@@ -124,6 +131,7 @@ function getParameters {
         $interfaces = @()
 
         $groups = @()
+        $templates = @()
         $tags = @()
 
 
@@ -191,6 +199,24 @@ function getParameters {
         }
 
         $params.Add("groups", $groups)
+
+        if ($includeTemplate){
+            $templateObj = @{}
+            $templatesList = $hostHashTable.templates.split(" ")
+    
+            foreach ($template in $templatesList) {
+                if (-not $template -eq '') {
+                    $templateObj.Add("templateid", $template)
+                    $templates = $templates + $templateObj
+                    $templateObj = @{}
+                }
+            }
+    
+            $params.Add("templates", $templates)
+        }
+
+     
+        
         $params.Add("interfaces", $interfaces)
 
         if ($includeTags) {
