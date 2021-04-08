@@ -1,33 +1,27 @@
-$elementos = Import-Csv -Path ./elementos.csv
-$variableList = Import-Csv -Path ./variables.csv
+function getParameters {
 
-function getVariable {
-
-    param ($variableName, $variableList)
-
-    $output = $variableName
-    foreach ($variable in $variableList) {
-
-        if ($variableName -eq $variable.Variable) {
-            $output = $variable.Value
-        }
-    }
-
-    Write-Output $output
-
-} 
-
-foreach ($elemento in $elementos) {
+    param ($elemento, $variableList)
 
     $tagsHashTable = @{}
     $inventoryHashTable = @{}
     $hostHashTable = @{}
     $snmpHashTable = @{}
-
     $includeHost = $true
     $includeSNMP = $true
     $includeInventory = $true
     $includeTags = $true
+    function getVariable {
+
+        param ($variableName, $variableList)
+    
+        $output = $variableName
+        foreach ($variable in $variableList) {
+            if ($variableName -eq $variable.Variable) {
+                $output = $variable.Value
+            }
+        }
+        Write-Output $output
+    } 
     
 
     $hosts = $elemento | Get-Member -Name 'host *'
@@ -53,14 +47,12 @@ foreach ($elemento in $elementos) {
     if ($hostHashTable.'hostname' -eq $null -or 
         ($hostHashTable.'ip' -eq $null -and $hostHashTable.'dns' -eq $null) -or 
         $hostHashTable.'groups' -eq $null) {
-
         $includeHost = $false
 
     }
 
     $snmps = $elemento | Get-Member -Name 'snmp *'
     
-
     foreach ($snmp in $snmps) {
     
 
@@ -69,7 +61,6 @@ foreach ($elemento in $elementos) {
         $snmpValue = $elemento.$snmpName
         $snmpValue = getVariable -variableName $snmpValue -variableList $variableList
 
-        
         ##Check if there is an IP or DNS
         if (-not $snmpValue -eq '') {
             $snmpHashTable.add($snmpNameZabbix, $snmpValue)
@@ -120,78 +111,112 @@ foreach ($elemento in $elementos) {
         $includeTags = $false
     }
     
-}
 
-if ($includeHost) {
+    if ($includeHost) {
 
-    $params = @{} 
-    $params.Add("hostname", $hostHashTable.hostname)
+        $params = @{} 
+        $params.Add("hostname", $hostHashTable.hostname)
 
-    if (-not ($hostHashTable.name -eq $null)) {
-        $params.Add("name", $hostHashTable.name)
-    }
-
-    $interfaces = @()
-
-    $int = @{
-        "type"  = 1
-        "main"  = 1
-        "useip" = 1
-        "ip"    = ""
-        "dns"   = ""
-        "port"  = "10050"
-    }
-
-    if ($hostHashTable.ip -eq $null) {
-        $int.useip = 0
-        $int.dns = $hostHashTable.dns
-    }
-    else {
-        if ($hostHashTable.dns -eq $null) {
-            $int.ip = $hostHashTable.ip
+        if (-not ($hostHashTable.name -eq $null)) {
+            $params.Add("name", $hostHashTable.name)
         }
-        else {
-            $int.dns = $hostHashTable.dns
-            $int.ip = $hostHashTable.ip
-        }
-    }
 
-    $interfaces = $interfaces + $int
+        $interfaces = @()
 
-    $snmpHashTable
-    if ($includeSNMP) {
+        $groups = @()
+        $tags = @()
 
-        $snmpInt = @{
-            "type"  = 2
+
+        $int = @{
+            "type"  = 1
             "main"  = 1
             "useip" = 1
             "ip"    = ""
             "dns"   = ""
-            "port"  = "161"
+            "port"  = "10050"
         }
 
-        if ($snmpHashTable.ip -eq $null) {
-            $snmpInt.useip = 0
-            $snmpInt.dns = $snmpHashTable.dns
+        if ($hostHashTable.ip -eq $null) {
+            $int.useip = 0
+            $int.dns = $hostHashTable.dns
         }
         else {
-            if ($snmpHashTable.dns -eq $null) {
-                $snmpInt.ip = $snmpHashTable.ip
+            if ($hostHashTable.dns -eq $null) {
+                $int.ip = $hostHashTable.ip
             }
             else {
-                $snmpInt.dns = $snmpHashTable.dns
-                $snmpInt.ip = $snmpHashTable.ip
+                $int.dns = $hostHashTable.dns
+                $int.ip = $hostHashTable.ip
             }
         }
+
+        $interfaces = $interfaces + $int
+
+        if ($includeSNMP) {
+
+            $snmpInt = @{
+                "type"  = 2
+                "main"  = 1
+                "useip" = 1
+                "ip"    = ""
+                "dns"   = ""
+                "port"  = "161"
+            }
+
+            if ($snmpHashTable.ip -eq $null) {
+                $snmpInt.useip = 0
+                $snmpInt.dns = $snmpHashTable.dns
+            }
+            else {
+                if ($snmpHashTable.dns -eq $null) {
+                    $snmpInt.ip = $snmpHashTable.ip
+                }
+                else {
+                    $snmpInt.dns = $snmpHashTable.dns
+                    $snmpInt.ip = $snmpHashTable.ip
+                }
+            }
   
-        $interfaces = $interfaces + $snmpInt
+            $interfaces = $interfaces + $snmpInt
+        }
+        $groupObj = @{}
+        $groupsList = $hostHashTable.groups.split(" ")
+
+        foreach ($group in $groupsList) {
+            if (-not $group -eq '') {
+                $groupObj.Add("groupid", $group)
+                $groups = $groups + $groupObj
+                $groupObj = @{}
+            }
+        }
+
+        $params.Add("groups", $groups)
+        $params.Add("interfaces", $interfaces)
+
+        if ($includeTags) {
+            $tagObj = @{}
+            $keys = $tagsHashTable.keys
+
+            foreach ($key in $keys) {
+                $tagObj.Add("tag", $key)
+                $tagObj.Add("value", $tagsHashTable.$key)
+                $tags = $tags + $tagObj
+                $tagObj = @{}
+            }
+
+            $params.Add("tags", $tags)
+        }
+
+
+        if ($includeInventory) {
+            $params.Add("inventory", $inventoryHashTable)
+        }
+
+        Write-Output  $params | ConvertTo-Json -Depth 4
+
+
     }
-
-    $params.Add("interfaces", $interfaces)
-
-    if ($includeInventory) {
-        $params.Add("inventory", $inventoryHashTable)
-    }
-    $params | ConvertTo-Json -Depth 4
-
 }
+
+
+
