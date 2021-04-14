@@ -1,4 +1,4 @@
-function getParameters {
+function CsvToJson {
 
     param ($elemento, $variableList)
 
@@ -10,7 +10,7 @@ function getParameters {
     $includeSNMP = $true
     $includeInventory = $true
     $includeTags = $true
-    $includeTemplate= $true
+    $includeTemplate = $true
 
     function getVariable {
 
@@ -49,12 +49,12 @@ function getParameters {
     if ($hostHashTable.'hostname' -eq $null -or 
         ($hostHashTable.'ip' -eq $null -and $hostHashTable.'dns' -eq $null) -or 
         $hostHashTable.'groups' -eq $null) {
-            $includeHost = $false
+        $includeHost = $false
 
     }
     
     $hostHashTable.'templates'
-    if ($hostHashTable.'templates' -eq $null){
+    if ($hostHashTable.'templates' -eq $null) {
         $includeTemplate = $false
     }
 
@@ -200,7 +200,7 @@ function getParameters {
 
         $params.Add("groups", $groups)
 
-        if ($includeTemplate){
+        if ($includeTemplate) {
             $templateObj = @{}
             $templatesList = $hostHashTable.templates.split(" ")
     
