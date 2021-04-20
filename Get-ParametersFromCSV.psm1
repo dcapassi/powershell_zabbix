@@ -1,4 +1,4 @@
-function CsvToJson {
+function Get-ParametersFromCSV {
 
     param ($elemento, $variableList)
 
@@ -239,7 +239,6 @@ function CsvToJson {
         }
 
         Write-Output  $params | ConvertTo-Json -Depth 4
-
 
     }
 }
