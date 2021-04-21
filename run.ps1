@@ -1,7 +1,7 @@
 Import-Module .\Get-ParametersFromCSV.psm1
 Import-Module .\SSLWorkAround.psm1
+Import-Module .\Add-Host.psm1
 Import-Module .\Get-Token.psm1
-
 
 #Get the Zabbix Parameters from the Console
 $Token = $null
@@ -31,20 +31,37 @@ $Try = $Try + 1
 }
 
 #If the user did not receive a Token the script ends
-if (-not $token){
+if (-not $Token){
     exit
 }
 
+Write-Host ("Authentication successful")
 
-
+Write-Host ("Importing Devices List")
+try{
 $devices = Import-Csv -Path ./Data/devices.csv
+}
+catch{
+    Write-Host "Error importing Devices List."
+    Write-Host "Error: " $_.Exception.Message
+    exit
+}
+Write-Host ("Importing Devices List")
+try{
 $variableList = Import-Csv -Path ./Data/variables.csv
-$parameters = Get-ParametersFromCSV -elemento $devices[0] -variableList $variableList
-Write-Host $parameters | ConvertTo-Json -Depth 4
+}
+catch{
+    Write-Host "Error importing Devices List."
+    Write-Host "Error: " $_.Exception.Message
+    exit
+}
 
+Write-Host ("Creating Hosts")
 
-
-
+foreach ($device in $devices) {
+$parameters = Get-ParametersFromCSV -elemento $device -variableList $variableList
+$Data = Add-Host -IP $Ip -Port $Port -Protocol $Protocol -Token $Token -Parameters $parameters
+}
 
 
 

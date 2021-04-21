@@ -53,7 +53,6 @@ function Get-ParametersFromCSV {
 
     }
     
-    $hostHashTable.'templates'
     if ($hostHashTable.'templates' -eq $null) {
         $includeTemplate = $false
     }
@@ -125,7 +124,7 @@ function Get-ParametersFromCSV {
         $params.Add("hostname", $hostHashTable.hostname)
 
         if (-not ($hostHashTable.name -eq $null)) {
-            $params.Add("name", $hostHashTable.name)
+            $params.Add("host", $hostHashTable.name)
         }
 
         $interfaces = @()
@@ -162,6 +161,8 @@ function Get-ParametersFromCSV {
 
         if ($includeSNMP) {
 
+            $version = if ($snmpHashTable.version) {$snmpHashTable.version} Else {"2"}
+
             $snmpInt = @{
                 "type"  = 2
                 "main"  = 1
@@ -169,6 +170,11 @@ function Get-ParametersFromCSV {
                 "ip"    = ""
                 "dns"   = ""
                 "port"  = "161"
+                "details" = @{
+                    "version" = $version
+                    "community" = $snmpHashTable.community
+                    "bulk" = 1
+                }
             }
 
             if ($snmpHashTable.ip -eq $null) {
@@ -214,7 +220,6 @@ function Get-ParametersFromCSV {
     
             $params.Add("templates", $templates)
         }
-
      
         
         $params.Add("interfaces", $interfaces)
@@ -237,8 +242,7 @@ function Get-ParametersFromCSV {
         if ($includeInventory) {
             $params.Add("inventory", $inventoryHashTable)
         }
-
-        Write-Output  $params | ConvertTo-Json -Depth 4
+        Write-Output  $params
 
     }
 }

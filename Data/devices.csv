@@ -1,4 +1,4 @@
-﻿host - hostname,host - name,host - groups,host - templates,host - ip,host - dns,snmp - ip,snmp - dns,snmp - community,snmp - version,tag - MAC,tag - SALA,tag - RACK,inv - macaddress_b,inv - installer_name,inv - os,inv - location,inv - asset,inv - vendor
-net-rtr01-br-core,Router01-Core,$_GROUPS_BR,,192.168.1.1,net-rtr01-br-core.lab,172.16.1.1,l0-net-rtr01-br-core.lab,$_GLOBAL,2,a0:b0:c0:d0:e0:f0,Sala01,rack01,a0:b0:c0:d0:e0:f0,Diego,$_HOST,Prédio 1,74,Cisco
-net-rtr02-br-core,Router02-Core,15,,192.168.1.2,net-rtr01-br-core.lab,172.16.1.2,l0-net-rtr01-br-core.lab,,2,a1:b1:c1:d1:e1:f1,Sala02,rack04,a1:b1:c1:d1:e1:f1,Jorge ,Windows 10,Prédio 2,88,Juniper
-net-rtr03-br-core,Router03-Core,15,,192.168.1.3,net-rtr01-br-core.lab,192.168.1.1,l0-net-rtr01-br-core.lab,$_GLOBAL,2,a1:b1:c1:d1:e1:f1,Sala02,rack04,a1:b1:c1:d1:e1:f1,Diego,Windows 10,Prédio 2,$_HOST,Juniper
+﻿host - hostname,host - name,host - groups,host - templates,host - ip,host - dns,snmp - ip,snmp - dns,snmp - community,snmp - version,tag - MAC,tag - SALA,tag - RACK,inv - macaddress_b,inv - installer_name,inv - os,inv - location,inv - asset_tag,inv - vendor
+net-rtr01-br-core,Router01-Core,15,10186,192.168.1.1,net-rtr01-br-core.lab,172.16.1.1,l0-net-rtr01-br-core.lab,$_GLOBAL,1,a0:b0:c0:d0:e0:f0,Sala01,rack01,a0:b0:c0:d0:e0:f0,Diego,$_HOST,Prédio 2,74,Cisco
+net-rtr02-br-core,Router02-Core,15,10186,192.168.1.2,net-rtr01-br-core.lab,172.16.1.2,l0-net-rtr01-br-core.lab,,1,a1:b1:c1:d1:e1:f1,Sala02,rack04,a1:b1:c1:d1:e1:f1,Jorge ,Windows 10,Prédio 2,88,Juniper
+net-rtr03-br-core,Router03-Core,15,10186,192.168.1.3,net-rtr01-br-core.lab,192.168.1.1,l0-net-rtr01-br-core.lab,$_GLOBAL,1,a1:b1:c1:d1:e1:f1,Sala02,rack04,a1:b1:c1:d1:e1:f1,Diego,Windows 10,Prédio 2,$_HOST,Juniper
