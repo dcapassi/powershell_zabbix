@@ -37,7 +37,7 @@ catch {
     Write-Host "Error: " $_.Exception.Message
     exit
 }
-Write-Host ("Importing Devices List")
+Write-Host ("Importing Variables List")
 try {
     $variableList = Import-Csv -Path ./Data/variables.csv
 }
