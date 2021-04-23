@@ -2,23 +2,23 @@
 This script reads the devices.csv and creates the Zabbix hosts.
 
 Mandatory Fields:
-  host - hostname
-  host - hostgroup
-  host - ip
+  *host - hostname
+  *host - hostgroup
+  *host - ip
 
 Inventory fields may be added creating a field called "inv - ZABBIX_INVENTORY".
 Example:
-  inv - macaddress_b
-  inv - notes
-  inv - os
+  *inv - macaddress_b
+  *inv - notes
+  *inv - os
   
   (inventory.csv may be consulted for avalaible inventory fields)
 
 Tags may be added creating a field called "tag - TAG_NAME"
 Example:
-  tag - TYPE
-  tag - ROOM
-  tag - RACK
+  *tag - TYPE
+  *tag - ROOM
+  *tag - RACK
 
 Variables may be used using $_VARIABLE_NAME.
 The variable has to be added on the variables.csv file.
