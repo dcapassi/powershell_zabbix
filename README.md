@@ -51,7 +51,7 @@ Host Created:  switch01
 
 
 Caveats
-* SNMP v3 is currently not supported;
+* Only IP and SNMPv1 and 2 are supported.
 
 
 
