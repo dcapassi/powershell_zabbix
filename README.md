@@ -27,11 +27,6 @@ On the DATA folder there are the following files:\
 devices.csv - List of the devices to be created;
 variables.csv - List of variables
 
-Enter the IP Address or domain of the Zabbix server;\
-TCP Port;\
-API admin User;\
-API admin password;\
-Protocol, HTTP or HTTPS;
 
 Usage example:
 .\run.ps1\
