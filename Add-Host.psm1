@@ -1,4 +1,4 @@
-function Add-Host{
+function Add-Host {
 
     param ($IP, $Port, $Protocol, $Token, $Parameters)
 
@@ -15,12 +15,12 @@ function Add-Host{
         "id"      = 1 
     } | ConvertTo-Json -Depth 5
 
-    try{
-    ## Create Host
-    $data = (Invoke-RestMethod -Headers $headers -Body ([System.Text.Encoding]::UTF8.GetBytes($body)) -Method Post -Uri  "${Protocol}://${Ip}:${Port}/zabbix/api_jsonrpc.php") 
+    try {
+        ## Create Host
+        $data = (Invoke-RestMethod -Headers $headers -Body ([System.Text.Encoding]::UTF8.GetBytes($body)) -Method Post -Uri  "${Protocol}://${Ip}:${Port}/zabbix/api_jsonrpc.php") 
     }
 
-    catch{
+    catch {
         Write-Host "Error: " $_.Exception.Message
         $line = "-" * $WindowSize
         Write-Host $line
@@ -28,7 +28,7 @@ function Add-Host{
         exit
     }
 
-    if ($data){
+    if ($data) {
         Write-Host "Host Created: " $Parameters.hostname
     }
 

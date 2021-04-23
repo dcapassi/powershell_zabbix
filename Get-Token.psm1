@@ -1,4 +1,4 @@
-function GetToken{
+function GetToken {
 
     param ($IP, $Port, $Protocol, $User, $StringPassword)
 
@@ -21,12 +21,12 @@ function GetToken{
     
     $token = $null
 
-    try{
-    ## Get Token
-    $token = (Invoke-RestMethod -Headers  $headers -Body ([System.Text.Encoding]::UTF8.GetBytes($body)) -Method Post -Uri  "${Protocol}://${Ip}:${Port}/zabbix/api_jsonrpc.php").result
+    try {
+        ## Get Token
+        $token = (Invoke-RestMethod -Headers  $headers -Body ([System.Text.Encoding]::UTF8.GetBytes($body)) -Method Post -Uri  "${Protocol}://${Ip}:${Port}/zabbix/api_jsonrpc.php").result
     }
     
-    catch{
+    catch {
         Write-Host "Error: " $_.Exception.Message
         $line = "-" * $WindowSize
         Write-Host $line

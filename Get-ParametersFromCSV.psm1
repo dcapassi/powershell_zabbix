@@ -161,19 +161,19 @@ function Get-ParametersFromCSV {
 
         if ($includeSNMP) {
 
-            $version = if ($snmpHashTable.version) {$snmpHashTable.version} Else {"2"}
+            $version = if ($snmpHashTable.version) { $snmpHashTable.version } Else { "2" }
 
             $snmpInt = @{
-                "type"  = 2
-                "main"  = 1
-                "useip" = 1
-                "ip"    = ""
-                "dns"   = ""
-                "port"  = "161"
+                "type"    = 2
+                "main"    = 1
+                "useip"   = 1
+                "ip"      = ""
+                "dns"     = ""
+                "port"    = "161"
                 "details" = @{
-                    "version" = $version
+                    "version"   = $version
                     "community" = $snmpHashTable.community
-                    "bulk" = 1
+                    "bulk"      = 1
                 }
             }
 
