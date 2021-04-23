@@ -11,44 +11,42 @@ Inventory fields may be added creating a field called "inv - ZABBIX_INVENTORY".\
 Example:\
 inv - macaddress_b\
 inv - notes\
-inv - os
-  
-  (inventory.csv may be consulted for avalaible inventory fields)
+inv - os\
+(inventory.csv may be consulted for avalaible inventory fields)
 
-Tags may be added creating a field called "tag - TAG_NAME"
-Example:
-  *tag - TYPE
-  *tag - ROOM
-  *tag - RACK
+Tags may be added creating a field called "tag - TAG_NAME"\
+Example:\
+tag - TYPE\
+tag - ROOM\
+tag - RACK
 
-Variables may be used using $_VARIABLE_NAME.
+Variables may be used using $_VARIABLE_NAME.\
 The variable has to be added on the variables.csv file.
 
-On the DATA folder there is a devices.csv
-Usage: 
-Execute the run.ps1 file.
+On the DATA folder there are the following files:\
+devices.csv - List of the devices to be created;
+variables.csv - List of variables
 
-Enter the IP Address or domain of the Zabbix server;
-TCP Port;
-API admin User;
-API admin password;
+Enter the IP Address or domain of the Zabbix server;\
+TCP Port;\
+API admin User;\
+API admin password;\
 Protocol, HTTP or HTTPS;
 
-Example
-
-.\run.ps1
-Please enter the Zabbix IP or Domain: 192.168.56.1
-Please enter the Zabbix TCP Port: 8181
-Please enter the Zabbix API username: Admin
-Please enter the Zabbix API password: ******
-Please enter the Protocol (http | https): https
-Authentication successful
-Importing Devices List
-Importing Devices List
-Creating Hosts
-Host Created:  net-rtr01-br-core
-Host Created:  net-rtr02-br-core
-Host Created:  net-rtr03-br-core
+Usage example:
+.\run.ps1\
+Please enter the Zabbix IP or Domain: 192.168.56.1\
+Please enter the Zabbix TCP Port: 8181\
+Please enter the Zabbix API username: Admin\
+Please enter the Zabbix API password: ******\
+Please enter the Protocol (http | https): https\
+Authentication successful\
+Importing Devices List\
+Importing Devices List\
+Creating Hosts\
+Host Created:  net-rtr01-br-core\
+Host Created:  net-rtr02-br-core\
+Host Created:  net-rtr03-br-core\
 Host Created:  switch01
 
 
