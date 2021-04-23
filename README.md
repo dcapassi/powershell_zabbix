@@ -42,7 +42,7 @@ Please enter the Zabbix API password: ******\
 Please enter the Protocol (http | https): https\
 Authentication successful\
 Importing Devices List\
-Importing Devices List\
+Importing Variables List\
 Creating Hosts\
 Host Created:  net-rtr01-br-core\
 Host Created:  net-rtr02-br-core\
