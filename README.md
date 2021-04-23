@@ -1,16 +1,17 @@
-# powershell_zabbix
+# Create Zabbix hosts from a CSV file
+
 This script reads the devices.csv and creates the Zabbix hosts.
 
-Mandatory Fields:
-*host - hostname
-*host - hostgroup
-*host - ip
+Mandatory Fields:\
+host - hostname\
+host - hostgroup\
+host - ip
 
-Inventory fields may be added creating a field called "inv - ZABBIX_INVENTORY".
-Example:
-*inv - macaddress_b
-*inv - notes
-*inv - os
+Inventory fields may be added creating a field called "inv - ZABBIX_INVENTORY".\
+Example:\
+inv - macaddress_b\
+inv - notes\
+inv - os
   
   (inventory.csv may be consulted for avalaible inventory fields)
 
